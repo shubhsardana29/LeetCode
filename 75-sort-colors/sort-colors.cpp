@@ -10,12 +10,12 @@ public:
                 left++;
                 index++;
             }
-            else if(nums[index]==2){
-                swap(nums[index],nums[right]);
-                right--;
+            else if(nums[index]==1){
+                index++;
             }
             else{
-                index++;
+                swap(nums[index],nums[right]);
+                right--;
             }
         }
     }
