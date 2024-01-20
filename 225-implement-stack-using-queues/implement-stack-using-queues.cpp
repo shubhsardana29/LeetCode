@@ -1,37 +1,36 @@
 class MyStack {
 public:
-// method 1 using 2 queues
-    queue<int>q1,q2;
+// method 2 using only 1 queue
+    queue<int>q;
     MyStack() {
         
     }
     
     void push(int x) {
-        q2.push(x);
-        while(!q1.empty()){
-            q2.push(q1.front());
-            q1.pop();
-        }   
-        while(!q2.empty()){
-            q1.push(q2.front());
-            q2.pop();
-        } 
+        q.push(x);
+        // reverse loop till size-1
+        for(int i=0;i<q.size()-1;i++){
+            int front = q.front();
+            q.pop();
+            q.push(front);
+        }
+        
     }
     
     int pop() {
-        if(q1.empty()) return -1;
-        int popped=q1.front();
-        q1.pop();
+        if(q.empty()) return -1;
+        int popped=q.front();
+        q.pop();
         return popped;
     }
     
     int top() {
-        if(q1.empty()) return -1;
-        return q1.front();
+        if(q.empty()) return -1;
+        return q.front();
     }
     
     bool empty() {
-        return q1.empty() && q2.empty();
+        return q.empty();
     }
 };
 
