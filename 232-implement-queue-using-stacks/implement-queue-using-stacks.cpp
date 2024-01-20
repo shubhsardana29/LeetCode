@@ -1,46 +1,41 @@
 class MyQueue {
 public:
-// method 2 in which push-> o(1),empty in o(1) , rest o(n)
+// method 1 in which push-> o(n) , rest o(1)
     stack<int>s1,s2;
     MyQueue() {
         
     }
     
-    void push(int x) {  
+    void push(int x) {
+        while(!s1.empty()){
+            int copy1=s1.top();  //copy from s1
+            s2.push(copy1);      // paste in s2
+            s1.pop();            // cut from s1
+        } 
         s1.push(x);
-    }
-    
-int pop() {
-        if (s2.empty()) {
-        while (!s1.empty()) {
-            s2.push(s1.top());
-            s1.pop();
+        while(!s2.empty()){
+            int copy2=s2.top();
+            s1.push(copy2);
+            s2.pop();
         }
     }
-
-    if (!s2.empty()) {
-        int popped = s2.top();
-        s2.pop();
+    
+    int pop() {
+        if (s1.empty()) {
+            return -1; 
+        }
+        int popped=s1.top();
+        s1.pop();
         return popped;
-    } else {
-        return -1; 
     }
-}
     
-   int peek() {
-    if (s2.empty()) {
-        while (!s1.empty()) {
-            s2.push(s1.top());
-            s1.pop();
+    int peek() {
+        if (s1.empty()) {    
+            return -1; 
         }
+        int front=s1.top();
+        return front;
     }
-
-    if (!s2.empty()) {
-        return s2.top();
-    } else {
-        return -1; 
-    }
-}
     
     bool empty() {
         return s1.empty() && s2.empty();
