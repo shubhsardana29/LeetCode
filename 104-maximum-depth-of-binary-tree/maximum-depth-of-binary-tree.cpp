@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    int maxDepth(TreeNode* root) {
+    int recursionSol(TreeNode* root){
         // base case
         if(root==NULL) return 0;
 
@@ -19,5 +19,8 @@ public:
         int rightSubtree = maxDepth(root->right);
         int ans = 1 + max(leftSubtree,rightSubtree);
         return ans;
+    }
+    int maxDepth(TreeNode* root) {
+        return recursionSol(root);
     }
 };
