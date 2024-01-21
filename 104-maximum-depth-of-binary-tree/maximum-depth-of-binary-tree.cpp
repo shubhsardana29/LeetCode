@@ -11,16 +11,44 @@
  */
 class Solution {
 public:
-    int recursionSol(TreeNode* root){
-        // base case
-        if(root==NULL) return 0;
+    // int recursionSol(TreeNode* root){
+    //     // base case
+    //     if(root==NULL) return 0;
 
-        int leftSubtree = maxDepth(root->left);
-        int rightSubtree = maxDepth(root->right);
-        int ans = 1 + max(leftSubtree,rightSubtree);
-        return ans;
+    //     int leftSubtree = maxDepth(root->left);
+    //     int rightSubtree = maxDepth(root->right);
+    //     int ans = 1 + max(leftSubtree,rightSubtree);
+    //     return ans;
+    // }
+    int levelOrderSol(TreeNode* root){
+        
+        queue<TreeNode*>q;
+        q.push(root);
+        q.push(NULL);
+        int count = 0;
+
+        while(!q.empty()){
+            TreeNode* front = q.front();
+            q.pop();
+
+            if(front==NULL){
+                // cout<<endl;
+                if(!q.empty()){
+                    count++;
+                    q.push(NULL);
+                }
+            }
+            else{
+                // valid node wala case
+                // cout<<front->val;
+                if(front->left!=NULL) q.push(front->left);            
+                if(front->right!=NULL) q.push(front->right);    
+            }        
+        }
+        return count;
     }
     int maxDepth(TreeNode* root) {
-        return recursionSol(root);
+        // return recursionSol(root);
+        return (root==NULL) ? 0 :levelOrderSol(root)+1;
     }
 };
