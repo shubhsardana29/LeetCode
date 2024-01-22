@@ -11,7 +11,15 @@
  */
 class Solution {
 public:
-    TreeNode* solve(vector<int>& preorder, int& preorderIndex, vector<int>& inorder, int inorderStart, int inorderEnd, int size) {
+    void createMapping(vector<int>& inorder,int size, map<int,int>&valToIndexMap){
+        for(int i=0;i<size;i++){
+            int element=inorder[i];
+            int index=i;
+            valToIndexMap[element]=index;
+        }
+    }
+
+    TreeNode* solve(map<int,int>&valToIndexMap,vector<int>& preorder, int& preorderIndex, vector<int>& inorder, int inorderStart, int inorderEnd, int size) {
         // base case
         if (preorderIndex >= size || inorderStart > inorderEnd) return nullptr;
 
@@ -20,17 +28,12 @@ public:
         TreeNode* root = new TreeNode(rootValue);
 
         // find the index of the root in inorder
-        int rootIndex;
-        for (int i = inorderStart; i <= inorderEnd; ++i) {
-            if (inorder[i] == rootValue) {
-                rootIndex = i;
-                break;
-            }
-        }
+
+        int position = valToIndexMap[rootValue];
 
         // recursively build left and right subtrees
-        root->left = solve(preorder, preorderIndex, inorder, inorderStart, rootIndex - 1, size);
-        root->right = solve(preorder, preorderIndex, inorder, rootIndex + 1, inorderEnd, size);
+        root->left = solve(valToIndexMap,preorder, preorderIndex, inorder, inorderStart, position - 1, size);
+        root->right = solve(valToIndexMap,preorder, preorderIndex, inorder, position + 1, inorderEnd, size);
 
         return root;
     }
@@ -40,6 +43,9 @@ public:
         int inorderStart = 0;
         int inorderEnd = inorder.size() - 1;
         int size = preorder.size();
-        return solve(preorder, preorderIndex, inorder, inorderStart, inorderEnd, size);
+        map<int,int>valToIndexMap;
+        createMapping(inorder,size,valToIndexMap);
+        
+        return solve(valToIndexMap,preorder, preorderIndex, inorder, inorderStart, inorderEnd, size);
     }
 };
