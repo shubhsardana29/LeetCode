@@ -11,11 +11,20 @@
  */
 class Solution {
 public:
-    TreeNode* maxValue(TreeNode* root){
+// method 2
+    // TreeNode* maxValue(TreeNode* root){
+    //     if(root==NULL) return root;
+    //     TreeNode* temp=root;
+    //     while(temp->right){
+    //         temp=temp->right;
+    //     }
+    //     return temp;
+    // }
+    TreeNode* minValue(TreeNode* root){
         if(root==NULL) return root;
         TreeNode* temp=root;
-        while(temp->right){
-            temp=temp->right;
+        while(temp->left){
+            temp=temp->left;
         }
         return temp;
     }
@@ -44,11 +53,11 @@ public:
              return rightSubtree;
          }
          else{
-             TreeNode* maxi=maxValue(root->left);
-             root->val=maxi->val;
+             TreeNode* mini=minValue(root->right);
+             root->val=mini->val;
 
-             //important to delete maxi data node in the left subtree
-             root->left=deleteNode(root->left,maxi->val);
+             //important to delete mini data node in the left subtree
+             root->right=deleteNode(root->right,mini->val);
              return root;
          }
         }
