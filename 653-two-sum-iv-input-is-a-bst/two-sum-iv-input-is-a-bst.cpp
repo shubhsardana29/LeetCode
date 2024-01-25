@@ -32,11 +32,11 @@ public:
         while(start<end){
             if(inorder[start]+inorder[end]==k) return true;
             else if(inorder[start]+inorder[end]<k){
-                // findtarget(root->right,k);
+                
                 start++;
             }
             else{
-                // findtarget(root->left,k);
+                
                 end--;
             }
         }
