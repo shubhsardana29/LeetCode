@@ -14,7 +14,7 @@ public:
     void level(TreeNode* root){
         queue<TreeNode* >q;
         q.push(root);
-        q.push(NULL);
+        // q.push(NULL);
 
         while(!q.empty()){
             TreeNode* temp = q.front();
