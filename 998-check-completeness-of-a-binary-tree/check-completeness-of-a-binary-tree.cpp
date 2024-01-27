@@ -11,44 +11,24 @@
  */
 class Solution {
 public:
-    // void countNodes(TreeNode* root,int &count){
-    //     if(!root) return;
-    //     count++;
-    //     countNodes(root->left,count);
-    //     countNodes(root->right,count);
-    // }
-    bool levelOrderTraversal(TreeNode* root){
-        queue<TreeNode* >q;
-        q.push(root);
-        // q.push(NULL);
-        bool nullFound=false;
-
-        while(!q.empty()){
-            TreeNode* front = q.front();
-            q.pop();
-
-            if(front==NULL){
-                // cout<<endl;
-                // if(!q.empty()) q.push(NULL);
-                nullFound = true;
-            }
-            else{
-                //cout<<temp->data;
-                if(nullFound) return false;
-                // if(front->left!=NULL) 
-                q.push(front->left); 
-                // if(front->right!=NULL) 
-                q.push(front->right);  
+    bool isCompleteTree(TreeNode* root) {
+        
+        queue<TreeNode*> q;                // create a queue to hold the nodes in the binary tree
+        q.push(root);                       // add the root node to the queue
+        bool found_null = false;          // keep track of whether we've found a null node in the binary tree
+        while (!q.empty()) {                // while there are still nodes in the queue
+            TreeNode* node = q.front();     // get the next node in the queue
+            q.pop();                        // remove it from the queue
+            if (node == nullptr) {          // if the node is null
+                found_null = true;          // set found_null to true
+            } else {                        // otherwise, the node is not null
+                if (found_null) {           // if we've already found a null node
+                    return false;           // the binary tree is not complete
+                }
+                q.push(node->left);         // add the left child of the node to the queue
+                q.push(node->right);        // add the right child of the node to the queue
             }
         }
-        return true;
-    }
-    bool isCompleteTree(TreeNode* root) {
-        // int totalNodes = 0;
-        // countNodes(root,totalNodes);
-        // int lastNode=0;
-        return levelOrderTraversal(root);
-        // if(lastNode>totalNodes) return false;
-        
+        return true;                        // if we've made it this far, the binary tree is complete
     }
 };
