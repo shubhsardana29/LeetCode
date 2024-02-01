@@ -1,7 +1,7 @@
 class Solution {
 public:
 // method 1: using hash
-    string reorganizeString(string s) {
+    string methodUsingHash(string s){
         int count[26]={0};
 
         for(int i=0;i<s.size();i++){
@@ -40,5 +40,8 @@ public:
              }
         }
         return s;
+    }
+    string reorganizeString(string s) {
+        return methodUsingHash(s);
     }
 };
