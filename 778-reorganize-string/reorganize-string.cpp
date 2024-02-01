@@ -1,47 +1,54 @@
 class Solution {
 public:
-// method 1: using hash
-    string methodUsingHash(string s){
-        int count[26]={0};
+    // method 1: using max heap
+    string methodUsingHeap(string &s) {
+        map<char, int> charCountMap;
+        priority_queue<pair<int, char>> pq;  // Updated to store frequency first
 
-        for(int i=0;i<s.size();i++){
-            count[s[i]-'a']++;
+        // Step 2: Update the character count map
+        for (int i = 0; i < s.size(); i++) {
+            charCountMap[s[i]]++;
         }
 
-        // find the most freq occuring char
-        char most_freq_char;
-        int max_freq=INT_MIN;
-        for(int i=0;i<26;i++){
-            if(count[i]>max_freq) max_freq=count[i], most_freq_char = i+'a';
+        // Step 3: Push pairs into the max heap
+        for (auto entry : charCountMap) {
+            pq.push({entry.second, entry.first});
         }
 
-        // placing most freq char in one go
-        int index=0;
-        while(max_freq>0 && index<s.size()){
-            s[index]= most_freq_char;
-            max_freq--; 
-            index+=2;
+        // Step 4: Reconstruct the string
+        string result = "";
+        while (pq.size() >= 2) {
+            auto first = pq.top();
+            pq.pop();
+            auto second = pq.top();
+            pq.pop();
+
+            // Append the characters to the result
+            result += first.second;
+            result += second.second;
+
+            // Decrement the frequencies and push back if not zero
+            if (--first.first > 0) {
+                pq.push(first);
+            }
+            if (--second.first > 0) {
+                pq.push(second);
+            }
         }
 
-        // if all the elements of most occuring char were not able to place
-        if(max_freq!=0){
-            return "";
+        // If there's one character left in the heap, append it to the result
+        if (!pq.empty()) {
+            auto last = pq.top();
+            if (last.first > 1) {
+                return "";  // It's not possible to reconstruct the string without adjacent identical characters
+            }
+            result += last.second;
         }
 
-        // if max freq ==0
-        count[most_freq_char-'a']=0; 
-
-        // place other remaining characters
-        for(int i=0;i<26;i++){
-             while(count[i]--){
-                index=index >= s.size() ? 1 : index; 
-                s[index]=i+'a';
-                index+=2;
-             }
-        }
-        return s;
+        return result.size() == s.size() ? result : "";  // Check if it's possible to reconstruct the string
     }
+
     string reorganizeString(string s) {
-        return methodUsingHash(s);
+        return methodUsingHeap(s);
     }
 };
