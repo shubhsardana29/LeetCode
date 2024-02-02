@@ -1,3 +1,31 @@
+class Solution {
+public:
+    vector<int> sequentialDigits(int low, int high) {
+        vector<int> ans;
+        for (int startDigit = 1; startDigit <= 9; ++startDigit) {
+            generateSequentialDigits(ans, low, high, 0, startDigit);
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
+
+private:
+    void generateSequentialDigits(vector<int>& ans, int low, int high, int current, int digit) {
+        if (current > high) {
+            return;
+        }
+
+        if (current >= low && current <= high) {
+            ans.push_back(current);
+        }
+
+        if (digit <= 9 && current * 10 + digit <= high) {
+            generateSequentialDigits(ans, low, high, current * 10 + digit, digit + 1);
+        }
+    }
+};
+
+
 // class Solution {
 // public:
 //     vector<int> sequentialDigits(int low, int high) {
@@ -14,25 +42,25 @@
 //     }
 // };
 
-class Solution {
-public:
-    vector<int> sequentialDigits(int low, int high) {
-        vector<int> ans;
+// class Solution {
+// public:
+//     vector<int> sequentialDigits(int low, int high) {
+//         vector<int> ans;
 
-        string digits = "123456789";
-        int n = digits.size();
+//         string digits = "123456789";
+//         int n = digits.size();
 
-        for (int len = 1; len <= n; ++len) {
-            for (int i = 0; i <= n - len; ++i) {
-                string sub = digits.substr(i, len);
-                int num = stoi(sub);
-                if (num >= low && num <= high) {
-                    ans.push_back(num);
-                }
-            }
-        }
+//         for (int len = 1; len <= n; ++len) {
+//             for (int i = 0; i <= n - len; ++i) {
+//                 string sub = digits.substr(i, len);
+//                 int num = stoi(sub);
+//                 if (num >= low && num <= high) {
+//                     ans.push_back(num);
+//                 }
+//             }
+//         }
 
-        sort(ans.begin(), ans.end());
-        return ans;
-    }
-};
+//         sort(ans.begin(), ans.end());
+//         return ans;
+//     }
+// };
