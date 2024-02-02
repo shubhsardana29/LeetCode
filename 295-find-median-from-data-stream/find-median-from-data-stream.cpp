@@ -24,13 +24,14 @@ public:
             }
             median =( maxi.top() + mini.top() )/ 2.0;
         } else if (mini.size() == maxi.size() + 1) {
-            if (element < median) {
-                maxi.push(element);
-            } else {
+            if (element > median) {
                 int minTop = mini.top();
                 mini.pop();
                 maxi.push(minTop);
                 mini.push(element);
+                
+            } else {
+                maxi.push(element);
             }
             median = ( maxi.top() + mini.top() ) / 2.0;
         }
