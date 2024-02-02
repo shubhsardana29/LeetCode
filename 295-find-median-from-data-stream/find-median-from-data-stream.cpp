@@ -8,29 +8,31 @@ public:
         if (maxi.size() == mini.size()) {
             if (element > median) {
                 mini.push(element);
-                median = static_cast<double>(mini.top());
+                median = mini.top();
             } else {
                 maxi.push(element);
-                median = static_cast<double>(maxi.top());
+                median = maxi.top();
             }
         } else if (maxi.size() == mini.size() + 1) {
             if (element > median) {
                 mini.push(element);
             } else {
-                maxi.push(element);
-                mini.push(maxi.top());
+                int maxTop = maxi.top();
                 maxi.pop();
+                mini.push(maxTop);
+                maxi.push(element);
             }
-            median = (static_cast<double>(maxi.top()) + static_cast<double>(mini.top())) / 2.0;
+            median =( maxi.top() + mini.top() )/ 2.0;
         } else if (mini.size() == maxi.size() + 1) {
             if (element < median) {
                 maxi.push(element);
             } else {
-                mini.push(element);
-                maxi.push(mini.top());
+                int minTop = mini.top();
                 mini.pop();
+                maxi.push(minTop);
+                mini.push(element);
             }
-            median = (static_cast<double>(maxi.top()) + static_cast<double>(mini.top())) / 2.0;
+            median = ( maxi.top() + mini.top() ) / 2.0;
         }
     }
 
@@ -46,7 +48,7 @@ public:
 private:
     double median;
     priority_queue<int> maxi;
-    priority_queue<int, std::vector<int>, std::greater<int>> mini;
+    priority_queue<int, vector<int>, greater<int>> mini;
 };
 
 /**
