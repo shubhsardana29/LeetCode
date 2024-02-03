@@ -2,8 +2,8 @@ class Solution {
 public:
     // method 1: using max heap
     string methodUsingHeap(string &s) {
-        map<char, int> charCountMap;
-        priority_queue<pair<int, char>> pq;  // Updated to store frequency first
+        unordered_map<char, int> charCountMap;
+        priority_queue<pair<int, char>> pq;  // store frequency first
 
         // Step 2: Update the character count map
         for (int i = 0; i < s.size(); i++) {
