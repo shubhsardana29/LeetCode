@@ -57,11 +57,10 @@ public:
         return dp[n];
     }
     int solveUsingTabulationSpaceOptimised(int n){
-
-        // Step 2: analyze base case and fill dp aray
         int prev=0;
         if(n==0) return 0;
         int curr=1;
+        if(n==1) return 1;
 
         int ans;
         for(int i=2;i<n+1;i++){
