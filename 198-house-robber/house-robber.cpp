@@ -1,4 +1,4 @@
-// recursion solution - (TLE)
+//recursion solution - (TLE)
 
 // class Solution {
 // public:
@@ -18,18 +18,30 @@
 //     }
 // };
 
-// dp solution
+
+//Top down DP solution - recursion + memoization
 
 class Solution {
 public:
-    // time/space: O(n)/O(1)
+    int solveUsingTopDownDp(vector<int>& nums,int index,vector<int>&dp){
+        // base case
+        if(index>=nums.size()) return 0;
+
+        //check if answer already exists
+        if(dp[index]!=-1) return dp[index];
+
+        // sol for 1 case
+        int robAmt1 = nums[index] + solveUsingTopDownDp(nums,index+2,dp);
+        int robAmt2 = 0 + solveUsingTopDownDp(nums,index+1,dp);
+
+        return dp[index]=max(robAmt1,robAmt2);
+    }
     int rob(vector<int>& nums) {
-        int dp0 = 0, dp1 = 0;
-        for (auto& num : nums) {
-            int curr = max(dp0 + num /* take */, dp1 /* skip (not take) */);
-            dp0 = dp1;
-            dp1 = curr;
-        }
-        return max(dp0, dp1);
+        int index=0;
+        int n=nums.size();
+        vector<int>dp(n+1,-1);
+        return solveUsingTopDownDp(nums,index,dp);
+        
     }
 };
+
