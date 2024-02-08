@@ -14,8 +14,11 @@ public:
     //     return solveUsingMem(n,dp);
     // }
 
+    // int fib(int n) {
+    //     return solveUsingTabulation(n);
+    // }
     int fib(int n) {
-        return solveUsingTabulation(n);
+        return solveUsingTabulationSpaceOptimised(n);
     }
 
     int solveUsingMem(int n,vector<int>& dp){
@@ -53,8 +56,27 @@ public:
         //ans return karna hai
         return dp[n];
     }
+    int solveUsingTabulationSpaceOptimised(int n){
+
+        // Step 2: analyze base case and fill dp aray
+        int prev=0;
+        if(n==0) return 0;
+        int curr=1;
+
+        int ans;
+        for(int i=2;i<n+1;i++){
+            //prev & current ko ek step aage move karna
+            ans = curr + prev;
+            prev= curr;
+            curr= ans;
+
+        }
+        //ans return karna hai
+        return ans;
+    }
     /* dp
     1) top down - recursion + memoization
     2) bottom up - iterative/ tabulation method 
+    3) bottom up - with space optimisation (only valid if pattern exits in ques)
     */
 };
