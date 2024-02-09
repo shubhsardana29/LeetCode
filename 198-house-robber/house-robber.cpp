@@ -79,7 +79,7 @@ public:
         
         int n=nums.size();
         int prev=nums[n-1];
-        int curr=0;
+        int curr;
         int next=0;
 
         for(int index=n-2;index>=0;index--){
