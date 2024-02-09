@@ -92,7 +92,7 @@ public:
     int solveUsingTab(vector<int>& coins, int amount) {
         // step 1: create dp array
         int n = amount;
-        vector<int> dp(n + 1, INT_MAX);
+        vector<int> dp(n + 1, -1);
         // step 2: analyze base case and fill initial dp array
         dp[0] = 0;
 
@@ -117,3 +117,4 @@ public:
         return dp[amount];
     }
 };
+// space optimisation not possible
