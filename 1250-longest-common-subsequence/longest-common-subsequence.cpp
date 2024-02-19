@@ -54,28 +54,58 @@ public:
     //     return solveUsingMem(text1,text2,i,j,dp);
     // }
 
-    int solveUsingTab(string a, string b) {
-        vector<vector<int>> dp(a.length() + 1, vector<int>(b.length() + 1, 0));
+    // int solveUsingTab(string a, string b) {
+    //     vector<vector<int>> dp(a.length() + 1, vector<int>(b.length() + 1, 0));
 
-        for (int i_index = a.length() - 1; i_index >= 0; i_index--) {
-            for (int j_index = b.length() - 1; j_index >= 0; j_index--) {
+    //     for (int i_index = a.length() - 1; i_index >= 0; i_index--) {
+    //         for (int j_index = b.length() - 1; j_index >= 0; j_index--) {
+    //             int ans;
+    //             // recursive call
+    //             if (a[i_index] == b[j_index]) {
+    //                 ans = 1 + dp[i_index + 1][j_index + 1];
+    //             } else {
+    //                 int caseA = dp[i_index][j_index + 1];
+    //                 int caseB = dp[i_index + 1][j_index];
+    //                 ans = max(caseA, caseB);
+    //             }
+    //             dp[i_index][j_index] = ans;
+    //         }
+    //     }
+
+    //     return dp[0][0];
+    // }
+
+    // int longestCommonSubsequence(string text1, string text2) {
+    //     return solveUsingTab(text1, text2);
+    // }
+
+    int solveUsingTabSpaceOpti(string a, string b) {
+        // vector<vector<int>> dp(a.length() + 1, vector<int>(b.length() + 1, 0));
+
+        vector<int>curr(a.length()+1,0);
+        vector<int>next(a.length()+1,0);
+
+        for (int j_index = b.length() - 1; j_index >= 0; j_index--) {
+            for (int i_index = a.length() - 1; i_index >= 0; i_index--) {
                 int ans;
                 // recursive call
                 if (a[i_index] == b[j_index]) {
-                    ans = 1 + dp[i_index + 1][j_index + 1];
+                    ans = 1 + next[i_index + 1];
                 } else {
-                    int caseA = dp[i_index][j_index + 1];
-                    int caseB = dp[i_index + 1][j_index];
+                    int caseA = next[i_index];
+                    int caseB = curr[i_index + 1];
                     ans = max(caseA, caseB);
                 }
-                dp[i_index][j_index] = ans;
+                curr[i_index] = ans;
             }
+            //shifting
+            next=curr;
         }
 
-        return dp[0][0];
+        return curr[0];
     }
 
     int longestCommonSubsequence(string text1, string text2) {
-        return solveUsingTab(text1, text2);
+        return solveUsingTabSpaceOpti(text1, text2);
     }
 };
