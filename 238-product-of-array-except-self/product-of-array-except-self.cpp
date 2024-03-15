@@ -1,35 +1,23 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        vector<int> ans;
         int n = nums.size();
-        int product = 1; 
-        int zeroCount = 0; 
+        vector<int> result(n, 1); 
         
-        // Compute the product of all elements and count zeros
-        for (int num : nums) {
-            if (num == 0) {
-                zeroCount++;
-                continue; // Skip multiplying zeros
-            }
-            product *= num;
+        // Calculate left products
+        int leftProduct = 1;
+        for (int i = 0; i < n; ++i) {
+            result[i] *= leftProduct;
+            leftProduct *= nums[i];
         }
         
-        // If there is more than one zero, all elements in the result will be 0
-        if (zeroCount > 1) {
-            ans = vector<int>(n, 0);
-        } else if (zeroCount == 1) {
-            // If there is only one zero, all elements except the zero will be 0
-            for (int num : nums) {
-                ans.push_back(num == 0 ? product : 0);
-            }
-        } else {
-            // If there are no zeros, divide the product by nums[i] for each element
-            for (int i = 0; i < n; ++i) {
-                ans.push_back(product / nums[i]);
-            }
+        // Calculate right products
+        int rightProduct = 1;
+        for (int i = n - 1; i >= 0; --i) {
+            result[i] *= rightProduct;
+            rightProduct *= nums[i];
         }
         
-        return ans;
+        return result;
     }
 };
