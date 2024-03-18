@@ -8,11 +8,11 @@ public:
         // Sort points based on end points using the compare function
         sort(points.begin(), points.end(), compare);
 
-        int numArrowShots = 0;
+        int arrows = 0;
         int i = 0;
 
         while (i < points.size()) {
-            numArrowShots++;
+            arrows++;
             int endMaxVal = points[i][1];
 
             while (i < points.size() &&
@@ -21,6 +21,6 @@ public:
             }
         }
 
-        return numArrowShots;
+        return arrows;
     }
 };
