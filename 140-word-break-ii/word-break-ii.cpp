@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        unordered_set<string> st(wordDict.begin(), wordDict.end()); // Initialize set with dictionary words
+        unordered_set<string> st(wordDict.begin(), wordDict.end()); 
         vector<string> result;
         string currSentence = "";
         
