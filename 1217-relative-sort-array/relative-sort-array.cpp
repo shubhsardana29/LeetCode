@@ -10,7 +10,7 @@ public:
     };
 
     vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
-        unordered_map<int, int> numPosMap;
+        map<int, int> numPosMap;
         for (int i = 0; i < arr2.size(); i++) {
             numPosMap[arr2[i]] = i + 1;
         }
